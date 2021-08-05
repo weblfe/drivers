@@ -21,7 +21,7 @@ const (
 	defaultAuth             = "guest:guest"
 	defaultQueuePrefix      = "queue_"
 	defaultLocale           = "en_US"
-	defaultHearBeatDuration = 10 * time.Second
+	defaultHearBeatDuration = 0 * time.Second
 	defaultDailNetworkTcp4  = "tcp4"
 	mqEnvKeyPrefix          = "RABBITMQ"
 )
@@ -306,6 +306,21 @@ func (b *Broker) getConnectorId() string {
 }
 
 func (b *Broker) getAmqpConfig() amqp.Config {
+	//  $host,
+	//        $port,
+	//        $user,
+	//        $password,
+	//        $vhost = '/',
+	//        $insist = false,
+	//        $login_method = 'AMQPLAIN',
+	//        $login_response = null,
+	//        $locale = 'en_US',
+	//        $connection_timeout = 3.0,
+	//        $read_write_timeout = 3.0,
+	//        $context = null,
+	//        $keepalive = false,
+	//        $heartbeat = 0
+	// $config['host'], $config['port'], $config['user'], $config['password'], $config['vhost'], false, 'AMQPLAIN', null, 'en_US', 10.0, 6.0, null, false, 3
 	return amqp.Config{
 		Heartbeat:       b.getHearBeatTime(),
 		TLSClientConfig: b.GetTlsConfig(),
