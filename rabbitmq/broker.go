@@ -44,7 +44,7 @@ type (
 		connectors map[string]*amqp.Connection
 	}
 
-	// 代理链接配置
+	// BrokerCfg 代理链接配置
 	BrokerCfg struct {
 		Server    string        `json:"broker"`
 		Ssl       bool          `json:"ssl"`
@@ -58,7 +58,7 @@ type (
 	}
 )
 
-// 获取
+// CreateBroker 获取
 func CreateBroker(info *BrokerCfg) *Broker {
 	if info == nil {
 		return nil
@@ -207,6 +207,7 @@ func getKeyByNamespace(key string, namespace string) string {
 func (b *Broker) SetByBrokerCfg(info BrokerCfg) *Broker {
 	b.server = info.Server
 	b.keyFile = info.Key
+	b.vhost = info.Vhost
 	b.certFile = info.Cert
 	b.ssl = info.Ssl
 	b.userPass = info.UserPass
